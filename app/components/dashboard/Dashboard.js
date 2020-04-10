@@ -29,6 +29,7 @@ export class Dashboard extends React.Component {
     localStorage.removeItem('session');
     localStorage.removeItem('username');
     localStorage.removeItem('invite');
+    localStorage.removeItem('readNotifications');
     this.props.logout();
   }
 

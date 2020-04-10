@@ -10,8 +10,6 @@ import { getNotifications } from '../../api/Notifications';
 import { checkCode } from '../../api/Invite';
 import { IgRestoreSession } from '../../api/Instagram';
 
-const lol = 0;
-
 export default class Home extends Component<Props, State> {
   constructor(props) {
     super(props);
