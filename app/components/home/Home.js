@@ -4,7 +4,9 @@ import { Setup } from '../setup/Setup';
 import { Live } from '../live/Live';
 import { Login } from '../login/Login';
 import { Dashboard } from '../dashboard/Dashboard';
+import { Notifications } from '../helpers/Notifications';
 
+import { getNotifications } from '../../api/Notifications';
 import { checkCode } from '../../api/Invite';
 import { IgRestoreSession } from '../../api/Instagram';
 
@@ -16,10 +18,12 @@ export default class Home extends Component<Props, State> {
 
     this.state = {
       componentState: 'dashboard',
+      prevComponentState: '',
       loginStage: 'invite',
       username: localStorage.getItem('username'),
-      streamUrl: 'rtmps://live-upload.instagram.com:443/rtmp/',
-      streamKey: '17991083032295132?s_efg=eyJxZV9ncm91cHMiOnsiaWdfbGl2ZV9lbmFibGVfcG9wX3ByaW1pbmciOnsiZW5hYmxlZCI6InRydWUifSwiaWdfbGl2ZV9ub3RpZmljYXRpb25zX2FmdGVyX2ZpcnN0X21wZF91bml2ZXJzZSI6W10sImlnX2xpdmVfdXNlX2ZpcmVmbHlfZW5jb2RpbmciOltdLCJpZ19sb3dfbGF0ZW5jeV9wcm9kdWN0aW9uX3VuaXZlcnNlIjp7ImVuYWJsZWQiOiJ0cnVlIn19fQ%3D%3D&s_sw=0&s_vt=ig&a=AbyK_QfCml88-wa5'
+      streamUrl: '',
+      streamKey: '',
+      notifications: []
     };
 
     this.loggenIn = this.loggenIn.bind(this);
@@ -27,6 +31,8 @@ export default class Home extends Component<Props, State> {
     this.live = this.live.bind(this);
     this.streamEnd = this.streamEnd.bind(this);
     this.logOut = this.logOut.bind(this);
+    this.closeNotifications = this.closeNotifications.bind(this);
+
   }
 
   componentWillMount() {
@@ -37,6 +43,8 @@ export default class Home extends Component<Props, State> {
     3. if one or both checks failed pass status as var to Login (login will accept and show desired screen (iglogin or invitelogin))
     4. logincheck = ok, invitecheck = ok as vars to login
     */
+
+
 
     const code = JSON.parse(localStorage.getItem('invite'));
     const username = localStorage.getItem('username')
@@ -69,6 +77,17 @@ export default class Home extends Component<Props, State> {
     } else {
       this.setState({ componentState: 'login', loginStage: 'invite' });
     }
+
+    getNotifications().then(data => {
+      console.log(data)
+      if(data.length > 0){
+        this.setState({ componentState: 'notifications',
+                        prevComponentState: this.state.componentState,
+                        notifications : data
+                      });
+      }
+    })
+
   }
 
   loggenIn(username) {
@@ -96,6 +115,10 @@ export default class Home extends Component<Props, State> {
     this.setState({ componentState: 'login' });
   }
 
+  closeNotifications() {
+    this.setState({ componentState: this.state.prevComponentState });
+  }
+
   render() {
     return (
         <Row>
@@ -121,6 +144,8 @@ export default class Home extends Component<Props, State> {
               />
             ) : null}
             {this.state.componentState == "live" ? <Live callback={this.streamEnd} /> : null}
+            {this.state.componentState == "notifications" ? <Notifications notifications={this.state.notifications} callback={this.closeNotifications} /> : null}
+
           </Col>
         </Row>
     );

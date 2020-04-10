@@ -52,6 +52,37 @@ body {
 	animation: gradient 60s ease infinite;
 }
 
+.notifications {
+  overflow:scroll;
+  height: 85vh;
+}
+
+.notification p {
+  margin: 0;
+}
+
+.notification h4 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.notification ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.notification {
+  margin-bottom: 20px;
+}
+
+.notification .pct-btn {
+  margin-left: 3px;
+}
+
+
+
+
+
 
 .bottom {
   position: fixed;
