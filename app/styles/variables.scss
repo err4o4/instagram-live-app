@@ -1,0 +1,156 @@
+//
+//  Bootstrap variables override
+//
+
+$gray: #303030;
+$gray-dark: #151515;
+$gray-light: gray;
+$gray-lighter: gray;
+$gray-lightest: gray;
+
+// $enable-flex:               true;
+$enable-rounded: true;
+$enable-shadows: true;
+$enable-gradients: true;
+$enable-transitions: true;
+$enable-hover-media-query: true;
+$enable-grid-classes: true;
+
+// Base
+$body-bg: #252525;
+$body-color: white;
+
+$link-color: #fff;
+
+$brand-primary: white;
+$enable-rounded: false;
+$enable-hover-media-query: true;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 544px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$container-max-widths: (
+  sm: 576px,
+  md: 720px,
+  lg: 940px,
+  xl: 1200px
+);
+
+
+body {
+  position: relative;
+  color: white;
+  height: 100vh;
+  overflow-y: hidden;
+  background: linear-gradient(-45deg, #8a3ab9, #cd486b, #bc2a8d, #fccc63, #fbad50, #e95950, #4c68d7);
+	background-size: 450% 450%;
+	animation: gradient 60s ease infinite;
+}
+
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+// Navbar
+$dark: #151515;
+
+// Input
+$input-bg: rgb(255, 255, 255);
+$input-border-color: rgba(53, 53, 53, 0);
+$input-group-addon-bg: rgb(53, 53, 53);
+$input-color: #000;
+
+// List Group
+$list-group-border-color: black;
+$list-group-link-color: white;
+$list-group-hover-bg: #333;
+$list-group-hover-bg: #333;
+$list-group-active-border: black;
+$list-group-bg: #484848;
+
+// Card
+$card-bg: #484848;
+$card-border-color: none;
+$card-color: white;
+
+// Components
+$component-active-bg: gray;
+$container-max-widths: (
+  sm: 576px,
+  md: 720px,
+  lg: 1440px,
+  xl: 1540px
+) !default;
+$headings-color: white;
+$navbar-dark-color: #848484;
+
+// Fonts
+$font-family-base: "Avenir Next", Avenir, "Segoe UI", Roboto, "Helvetica Neue",
+  Helvetica, sans-serif;
+$headings-font-weight: 400;
+
+.row-margin {
+  margin: 20px 0;
+}
+
+::selection {
+  background: black;
+  color: white;
+}
+
+.btn-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.drag {
+  height: 130px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+
+
+.successfully-saved{
+    background-color: blue;
+    -webkit-transition: background-color 20s; /* For Safari 3.1 to 6.0 */
+    transition: background-color 20s;
+}
+//
+// Custom Components
+//
+
+// Card list
+$card-list-color: #848484;
+
+// Notie
+$notie-font-size-big: 18px;
+$notie-font-size-small: 18px;
+
+// Plyr
+$plyr-color-main: gray;
+$plyr-tooltip-radius: 0;

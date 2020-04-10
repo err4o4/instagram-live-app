@@ -1,0 +1,51 @@
+.input {
+  border: 0px solid #fff;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+.input:disabled {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(255,255,255,1)
+}
+
+.input:focus{
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.inviteCode {
+  text-transform: uppercase;
+}
+
+textarea {
+  width: 100%;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0.1);
+  border:0;
+  border-radius: 20px;
+  resize: none;
+  padding: 15px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.txt-big {
+  height: 315px;
+}
+
+.txt-small {
+  height: 80px;
+}
+
+.mr-sm-2 {
+  font-weight: bold;
+}

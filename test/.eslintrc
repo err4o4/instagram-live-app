@@ -1,0 +1,15 @@
+{
+  "extends": "plugin:testcafe/recommended",
+  "env": {
+    "jest": true
+  },
+  "plugins": ["testcafe"],
+  "rules": {
+    "no-use-before-define": "off",
+    "global-require": "off",
+    "import/no-dynamic-require": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off",
+    "react/jsx-filename-extension": "off"
+  }
+}

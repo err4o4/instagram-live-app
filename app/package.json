@@ -1,0 +1,19 @@
+{
+  "name": "InstagramLive",
+  "description": "An experimental Instagram Live client",
+  "homepage": "https://github.com/err4o4/instagram-live",
+  "version": "0.0.1",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Ivan Savelyev <vantys2011@gmail.com>",
+    "email": "vantys2011@gmail.com",
+    "url": "https://github.com/err4o4"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r babel-register ../internals/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {
+  }
+}

@@ -1,0 +1,20 @@
+.pct-btn {
+  border-radius: 20px;
+  color:#fff;
+  border: 2px solid #fff;
+  font-weight: 300 !important;
+  margin-bottom: 25px;
+  margin-top: 10px;
+  background-color: rgba(255,255,255,0.1);
+}
+
+.live {
+  background-color: red !important;
+}
+.btn-down {
+   transform: translate(-50%, -50%);
+   position: absolute;
+   left: 50%;
+   bottom: 10px;
+
+}
