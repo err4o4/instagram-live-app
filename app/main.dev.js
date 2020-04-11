@@ -62,9 +62,11 @@ const installExtensions = async () => {
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  
+  //if (process.platform !== 'darwin') {
+  //  app.quit();
+  //}
+  app.quit();
 });
 
 app.on('ready', async () => {
@@ -84,14 +86,16 @@ app.on('ready', async () => {
     show: false,
     x: mainWindowState.x,
     y: mainWindowState.y,
-    width: mainWindowState.width,
-    height: mainWindowState.height,
+    //width: mainWindowState.width,
+    //height: mainWindowState.height,
+    width: 360,
+    height: 750,
     minWidth: 360,
     minHeight: 735,
     backgroundColor: '#252525',
-    titleBarStyle: 'hidden',
     transparent: true,
     resizable: false,
+    frame: false,
     webPreferences: {
       darkTheme: false,
       'web-preferences': { 'web-security': false },

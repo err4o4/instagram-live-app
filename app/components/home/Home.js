@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Row } from 'reactstrap';
+import { MdClose } from 'react-icons/md';
+import { AiOutlineLine } from 'react-icons/ai';
 import { Setup } from '../setup/Setup';
 import { Live } from '../live/Live';
 import { Login } from '../login/Login';
@@ -9,6 +11,8 @@ import { Notifications } from '../helpers/Notifications';
 import { getNotifications } from '../../api/Notifications';
 import { checkCode } from '../../api/Invite';
 import { IgRestoreSession } from '../../api/Instagram';
+
+const remote = require('electron').remote;
 
 export default class Home extends Component<Props, State> {
   constructor(props) {
@@ -30,7 +34,8 @@ export default class Home extends Component<Props, State> {
     this.streamEnd = this.streamEnd.bind(this);
     this.logOut = this.logOut.bind(this);
     this.closeNotifications = this.closeNotifications.bind(this);
-
+    this.closeApp = this.closeApp.bind(this);
+    this.minimizeApp = this.minimizeApp.bind(this);
   }
 
   componentWillMount() {
@@ -85,6 +90,22 @@ export default class Home extends Component<Props, State> {
       }
     })
 
+
+    const stream = localStorage.getItem('stream')
+    const isLive = localStorage.getItem('isLive')
+
+    if(stream && isLive) {
+      this.setState({ componentState: 'live' });
+    }
+    if(stream && !isLive) {
+
+      this.setState({
+        componentState: 'setup',
+        streamUrl: JSON.parse(stream).url,
+        streamKey: JSON.parse(stream).key,
+      });
+    }
+
   }
 
   loggenIn(username) {
@@ -98,13 +119,21 @@ export default class Home extends Component<Props, State> {
       streamKey: info.broadcast_id + parts[1],
       componentState: 'setup'
     });
+    localStorage.setItem('stream', JSON.stringify({
+      broadcast_id: info.broadcast_id,
+      url: parts[0],
+      key: info.broadcast_id + parts[1],
+    }))
   }
 
   live() {
+    localStorage.setItem('isLive', true)
     this.setState({ componentState: 'live' });
   }
 
   streamEnd() {
+    localStorage.removeItem('stream');
+    localStorage.removeItem('isLive');
     this.setState({ componentState: 'dashboard' });
   }
 
@@ -116,10 +145,29 @@ export default class Home extends Component<Props, State> {
     this.setState({ componentState: this.state.prevComponentState });
   }
 
+  closeApp() {
+    const stream = localStorage.getItem('stream')
+    if(!stream) {
+      var window = remote.getCurrentWindow();
+      window.close();
+    } else {
+      alert('You have to end stream first.')
+    }
+  }
+
+  minimizeApp() {
+    var window = remote.getCurrentWindow();
+    window.minimize();
+  }
+
   render() {
     return (
         <Row>
           <Col sm="12">
+            <div className="titleBar">
+              <span onClick={this.closeApp}><MdClose /></span>
+              <span onClick={this.minimizeApp}><AiOutlineLine /></span>
+            </div>
             {this.state.componentState == "login" ? (
               <Login
                 callback={this.loggenIn}

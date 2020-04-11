@@ -1,4 +1,6 @@
 import React from 'react';
+import { FiClipboard } from 'react-icons/fi';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Button, Input, Label, Form, FormGroup } from 'reactstrap';
 import { Loading } from '../helpers/Loading';
 import { Error } from '../helpers/Error';
@@ -24,6 +26,8 @@ export class Setup extends React.Component {
         this.setState({ componentState: '' });
         this.props.callback();
       }).catch(error => {
+        localStorage.removeItem('stream');
+        localStorage.removeItem('isLive');
         this.setState({ componentState: 'error', message : { title: 'Unable to go live', body: 'Please relogin and try again.' } });
         console.log(error);
       });
@@ -45,23 +49,29 @@ export class Setup extends React.Component {
       return <Error callback={this.LogOut} message={this.state.message} />;
     }
     return (
-      <div>
+      <div className="setup">
         <h1>Ready to go live?</h1>
-        <p>Copy URL and KEY to OBS, Wirecast, etc. and start streaming.</p>
+        <p>Copy URL and KEY to OBS, Wirecast, etc. and start streaming. Press on field to copy.</p>
 
         <Form>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label className="mr-sm-2">
-              stream URL:
-            </Label>
-            <textarea disabled className="txt-small" value={this.props.streamUrl} />
-          </FormGroup>
-          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-            <Label className="mr-sm-2">
-              stream KEY:
-            </Label>
-            <textarea disabled className="txt-big" value={this.props.streamKey}/>
-          </FormGroup>
+          <CopyToClipboard text={this.props.streamUrl}>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Label className="mr-sm-2">
+                stream URL:
+              </Label>
+              <span className="copy-icon"><FiClipboard /></span>
+              <textarea disabled className="txt-small" value={this.props.streamUrl} />
+            </FormGroup>
+           </CopyToClipboard>
+           <CopyToClipboard text={this.props.streamKey}>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Label className="mr-sm-2">
+                stream KEY:
+              </Label>
+              <span className="copy-icon"><FiClipboard /></span>
+              <textarea disabled className="txt-big" value={this.props.streamKey}/>
+            </FormGroup>
+           </CopyToClipboard>
           <Button
             className="pct-btn"
             outline

@@ -25,6 +25,8 @@ export class Live extends React.Component {
         this.props.callback();
       })
       .catch(error => {
+        localStorage.removeItem('stream');
+        localStorage.removeItem('isLive');
         this.setState({ componentState: 'error', message : { title: 'Unable to stop steam', body: 'Please relogin.' } });
         console.error(error);
       });

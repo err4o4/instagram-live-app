@@ -26,6 +26,8 @@ export class Dashboard extends React.Component {
       })
       .catch(error => {
         console.log(error);
+        localStorage.removeItem('stream');
+        localStorage.removeItem('isLive');
         this.setState({ componentState: 'error', message : { title: "Unable to create stream", body: 'Please relogin and try again.' } });
       });
   }

@@ -29,6 +29,17 @@
 @import "./styles/components/Button.scss";
 @import "./styles/components/Input.scss";
 
+
+// setup styles
+
+.setup .copy-icon {
+  float: right;
+  margin-right: 10px;
+}
+
+
+// end setup styles
+
 //
 // Utilities
 //
@@ -90,4 +101,17 @@ span {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.titleBar {
+  position: fixed;
+  top:0;
+  left: 0;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.titleBar span {
+  display: inline;
+  margin-right: 5px;
 }

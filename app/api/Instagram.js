@@ -31,6 +31,10 @@ export async function IgRestoreSession() {
           localStorage.getItem(sessionParsed.cookies[3].value)
         );
         await ig.state.deserializeCookieJar(JSON.parse(session));
+        const stream = localStorage.getItem('stream')
+        if(stream) {
+          BroadcastID = JSON.parse(stream).broadcast_id
+        }
         resolve(session);
       } else {
         reject("session can't be restored");
