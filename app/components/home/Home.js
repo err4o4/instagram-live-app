@@ -43,7 +43,6 @@ export default class Home extends Component<Props, State> {
     */
 
 
-
     const code = JSON.parse(localStorage.getItem('invite'));
     const username = localStorage.getItem('username')
     if (code && username) {
@@ -139,6 +138,7 @@ export default class Home extends Component<Props, State> {
                 streamUrl={this.state.streamUrl}
                 streamKey={this.state.streamKey}
                 callback={this.live}
+                logout={this.logOut}
               />
             ) : null}
             {this.state.componentState == "live" ? <Live callback={this.streamEnd} /> : null}

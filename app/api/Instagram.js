@@ -129,14 +129,22 @@ export async function IgCreateStream() {
 
 export async function IgGoLive() {
   return new Promise((resolve, reject) => {
-    ig.live.start(BroadcastID).then(resolve());
-  });
+    ig.live.start(BroadcastID).then(startInfo => {
+      resolve(startInfo)
+    }).catch(error => {
+      reject(error);
+    });
+  })
   console.log(startInfo);
 }
 
 export async function IgEndStream() {
   return new Promise((resolve, reject) => {
-    ig.live.endBroadcast(BroadcastID).then(resolve());
-  });
+    ig.live.endBroadcast(BroadcastID).then(endInfo => {
+      resolve(endInfo)
+    }).catch(error => {
+      reject(error);
+    });
+  })
   console.log('stream end');
 }

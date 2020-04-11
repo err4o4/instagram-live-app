@@ -6,14 +6,12 @@ export class Error extends React.Component {
     super(props);
   }
 
-
-
   render() {
     return (
         <div className="loading-wrapper">
           <div className="center">
-            <h1>{this.props.message}</h1>
-            <p>please try again.</p>
+            <h1>{this.props.message.title}</h1>
+            <p>{this.props.message.body}</p>
 
             <Button
               outline

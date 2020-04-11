@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import { Loading } from '../helpers/Loading';
+import { Error } from '../helpers/Error';
 
 import { IgCreateStream } from '../../api/Instagram';
 
@@ -8,20 +9,24 @@ export class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { showLoading: false, message: '' };
+    this.state = {
+      componentState: '',
+      message : { title: 'Creating live stream', body: 'Please wait a bit.' }
+    };
     this.CreateStream = this.CreateStream.bind(this);
     this.LogOut = this.LogOut.bind(this);
   }
 
   CreateStream() {
-    this.setState({ showLoading: true, message: 'Creating live stream' });
+    this.setState({ componentState: 'loading', message : { title: 'Creating live stream', body: 'Please wait a bit.' } });
     IgCreateStream()
       .then(stream => {
-        this.setState({ showLoading: false });
+        this.setState({ componentState: '' });
         this.props.callback(stream);
       })
       .catch(error => {
         console.log(error);
+        this.setState({ componentState: 'error', message : { title: "Unable to create stream", body: 'Please relogin and try again.' } });
       });
   }
 
@@ -34,8 +39,10 @@ export class Dashboard extends React.Component {
   }
 
   render() {
-    if (this.state.showLoading) {
+    if (this.state.componentState == 'loading') {
       return <Loading message={this.state.message} />;
+    } else if (this.state.componentState == 'error') {
+      return <Error callback={this.LogOut} message={this.state.message} />;
     }
     return (
       <div>

@@ -20,7 +20,7 @@ export class InstagramLogin extends React.Component {
       disabled: false,
       password: '',
       autoFocus: 'username',
-      message: 'Working',
+      message: { title: '', body: '' },
       componentState: ''
     };
     this.handleChange = this.handleChange.bind(this);
@@ -45,7 +45,7 @@ export class InstagramLogin extends React.Component {
   }
 
   handleSubmit(event) {
-    this.setState({ componentState: 'loading', message: 'Logging you in' });
+    this.setState({ componentState: 'loading', message: { title: 'Logging you in', body: 'Please wait a bit.' } });
     IgLogin(this.state.username, this.state.password)
       .then(user => {
         localStorage.setItem('username', user.username);
@@ -58,17 +58,29 @@ export class InstagramLogin extends React.Component {
         } else if(error.errorType == 'IgCheckpointError') {
           this.setState({ componentState: 'checkPoint' });
         } else if(error.errorType == 'IgLoginBadPasswordError') {
-          this.setState({ componentState: 'error', message: 'Invalid password.' });
+          this.setState({
+            componentState: 'error',
+            message: { title: 'Invalid password',
+                       body: 'Please check your password and try again.' }
+          });
         } else if(error.errorType == 'IgLoginInvalidUserError') {
-          this.setState({ componentState: 'error', message: 'Invalid username.' });
+          this.setState({
+            componentState: 'error',
+            message: { title: 'Invalid username',
+                       body: 'Please check your username and try again.' }
+          });
         } else if (error.errorType == 'Unknown') {
-          this.setState({ componentState: 'error', message: 'Unknown error :(' });
+          this.setState({
+            componentState: 'error',
+            message: { title: 'Unknown error',
+                       body: "Try again if it still doesn't work email us hello@err4o4.com" }
+          });
         }
       });
   }
 
   twoFactor(code) {
-    this.setState({ componentState: 'loading', message: 'Checking code'  });
+    this.setState({ componentState: 'loading', message: { title:  'Checking code', body: 'Please wait a bit.' }  });
     IgTwoFactor(code).then(user => {
       //localStorage.setItem('username', user.username);
       this.setState({ componentState: '' });
@@ -78,19 +90,27 @@ export class InstagramLogin extends React.Component {
       if(error.errorType == 'IgCheckpointError') {
         this.setState({ componentState: 'checkPoint' });
       } else if (error.errorType == 'Unknown') {
-        this.setState({ componentState: 'error', message: 'Unknown error :(' });
+        this.setState({
+          componentState: 'error',
+          message : { title: 'Invalid code',
+                      body: "Try login again if it still doesn't work email us hello@err4o4.com" }
+        });
       }
     })
   }
 
   checkPoint(code) {
-    this.setState({ componentState: 'loading', message: 'Checking code' });
+    this.setState({ componentState: 'loading', message: { title:  'Checking code', body: 'Please wait a bit.' } });
     IgCheckPoint(code).then(user => {
       //localStorage.setItem('username', user.username);
       this.setState({ componentState: '' });
       this.props.callback(user.username);
     }).catch(error => {
-      this.setState({ componentState: 'error', message: 'Invalid security code.' });
+      this.setState({
+        componentState: 'error',
+        message: { title: 'Invalid code',
+                   body: "Try login again if it still doesn't work email us hello@err4o4.com" }
+      });
       console.error(error);
     })
   }

@@ -13,7 +13,11 @@ import { checkCode } from '../../api/Invite';
 export class Invite extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { invite: '', componentState: '', message: '' };
+    this.state = {
+      invite: '',
+      componentState: '',
+      message: { title: '', body: '' }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.errorCallback = this.errorCallback.bind(this);
@@ -26,14 +30,13 @@ export class Invite extends React.Component {
   }
 
   handleSubmit(event) {
-    this.setState({ componentState: 'loading', message: 'Checking code' });
+    this.setState({ componentState: 'loading', message : { title: 'Checking code', body: 'Please wait a bit.' } });
     checkCode(this.state.invite).then(invite => {
         this.props.callback(invite);
       }).catch(error => {
         //alert('Invalid invite code. Please check your code and try again.');
-        this.setState({ componentState: 'error', message: 'Invalid invite code' });
+        this.setState({ componentState: 'error', message : { title: 'Invalid invite code', body: 'Please check invite code and try again.' } });
       });
-
     event.preventDefault();
   }
 

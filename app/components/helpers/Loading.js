@@ -9,8 +9,8 @@ export class Loading extends React.Component {
     return (
       <div className="loading-wrapper">
         <div className="center">
-          <h1 className="loading">{this.props.message}</h1>
-          <p>please wait a bit.</p>
+          <h1 className="loading">{this.props.message.title}</h1>
+          <p>{this.props.message.body}</p>
         </div>
       </div>
     );
