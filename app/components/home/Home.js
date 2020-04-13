@@ -7,7 +7,9 @@ import { Live } from '../live/Live';
 import { Login } from '../login/Login';
 import { Dashboard } from '../dashboard/Dashboard';
 import { Notifications } from '../helpers/Notifications';
+import { Update } from '../helpers/Update';
 
+import { checkVersion } from '../../api/Version';
 import { getNotifications } from '../../api/Notifications';
 import { checkCode } from '../../api/Invite';
 import { IgRestoreSession } from '../../api/Instagram';
@@ -39,14 +41,15 @@ export default class Home extends Component<Props, State> {
   }
 
   componentWillMount() {
-    /*
-    0. show loading screen
-    1. check invite from localStorage and update exp date
-    2. check exp instagram login from localStorage (if ok -> restore session)
-    3. if one or both checks failed pass status as var to Login (login will accept and show desired screen (iglogin or invitelogin))
-    4. logincheck = ok, invitecheck = ok as vars to login
-    */
 
+    checkVersion().then(version => {
+      if(version[0].update_required) {
+        this.setState({
+          componentState: 'update',
+          version: version
+         });
+      }
+    })
 
     const code = JSON.parse(localStorage.getItem('invite'));
     const username = localStorage.getItem('username')
@@ -81,7 +84,6 @@ export default class Home extends Component<Props, State> {
     }
 
     getNotifications().then(data => {
-      console.log(data)
       if(data.length > 0){
         this.setState({ componentState: 'notifications',
                         prevComponentState: this.state.componentState,
@@ -105,6 +107,8 @@ export default class Home extends Component<Props, State> {
         streamKey: JSON.parse(stream).key,
       });
     }
+
+
 
   }
 
@@ -191,7 +195,7 @@ export default class Home extends Component<Props, State> {
             ) : null}
             {this.state.componentState == "live" ? <Live callback={this.streamEnd} /> : null}
             {this.state.componentState == "notifications" ? <Notifications notifications={this.state.notifications} callback={this.closeNotifications} /> : null}
-
+            {this.state.componentState == "update" ? <Update version={this.state.version} /> : null}
           </Col>
         </Row>
     );

@@ -6,6 +6,8 @@ import {
   IgLoginTwoFactorRequiredError
 } from 'instagram-private-api';
 import { activateCode } from './Invite'
+import { createSession, updateSession } from './Session'
+
 import * as Bluebird from 'bluebird';
 // import inquirer from 'inquirer'
 const ig = new IgApiClient();
@@ -121,6 +123,7 @@ export async function IgCreateStream() {
       }).then(stream => {
         console.log(stream.broadcast_id, stream.upload_url);
         BroadcastID = stream.broadcast_id;
+        createSession()
         resolve({
           broadcast_id: stream.broadcast_id,
           upload_url: stream.upload_url
@@ -134,6 +137,7 @@ export async function IgCreateStream() {
 export async function IgGoLive() {
   return new Promise((resolve, reject) => {
     ig.live.start(BroadcastID).then(startInfo => {
+      updateSession('live')
       resolve(startInfo)
     }).catch(error => {
       reject(error);
@@ -145,6 +149,8 @@ export async function IgGoLive() {
 export async function IgEndStream() {
   return new Promise((resolve, reject) => {
     ig.live.endBroadcast(BroadcastID).then(endInfo => {
+      updateSession('end')
+      console.log(endInfo)
       resolve(endInfo)
     }).catch(error => {
       reject(error);

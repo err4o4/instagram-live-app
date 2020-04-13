@@ -2,7 +2,7 @@ const request = require('request');
 import moment from 'moment'
 import * as Bluebird from 'bluebird';
 
-const APIURL = 'http://134.209.238.226:1339/';
+const APIURL = 'https://api.iglive.err4o4.com/';
 
 export async function getNotifications() {
   return new Promise(async (resolve, reject) => {

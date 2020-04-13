@@ -1,7 +1,7 @@
 const request = require('request');
 import * as Bluebird from 'bluebird';
 
-const APIURL = 'http://134.209.238.226:1339/';
+const APIURL = 'https://api.iglive.err4o4.com/';
 
 function updateInvite(invite) {
   return new Promise(async (resolve) => {
@@ -31,7 +31,7 @@ export async function activateCode() {
     const code = JSON.parse(localStorage.getItem('invite')).code
     const username = localStorage.getItem('username')
     request.post({url:APIURL+'invites/activate', form: {code:code, username:username}}, function(error, response, body){
-      console.log(error,response.statusCode,body)
+      //console.log(error,response.statusCode,body)
       if(error) {
         reject(error);
       }
