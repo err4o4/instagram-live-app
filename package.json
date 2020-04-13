@@ -1,6 +1,6 @@
 {
   "name": "instagram-live-app",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An experimental Instagram Live client",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
