@@ -73,7 +73,7 @@ export class InstagramLogin extends React.Component {
           this.setState({
             componentState: 'error',
             message: { title: 'Unknown error',
-                       body: "Try again if it still doesn't work email us hello@err4o4.com" }
+                       body: "Try again if it still doesn't work email us live@bad.family" }
           });
         }
       });
@@ -93,7 +93,7 @@ export class InstagramLogin extends React.Component {
         this.setState({
           componentState: 'error',
           message : { title: 'Invalid code',
-                      body: "Try login again if it still doesn't work email us hello@err4o4.com" }
+                      body: "Try login again if it still doesn't work email us live@bad.family" }
         });
       }
     })
@@ -109,7 +109,7 @@ export class InstagramLogin extends React.Component {
       this.setState({
         componentState: 'error',
         message: { title: 'Invalid code',
-                   body: "Try login again if it still doesn't work email us hello@err4o4.com" }
+                   body: "Try login again if it still doesn't work email us live@bad.family" }
       });
       console.error(error);
     })
@@ -133,7 +133,7 @@ export class InstagramLogin extends React.Component {
       <div>
         <h1>Hello!</h1>
         <p>
-          Now you can login with your Instagram account. We don't store your
+          Now you can login to your Instagram account. We don't store your
           password.
         </p>
         <Form className="loginForm" onSubmit={this.handleSubmit}>

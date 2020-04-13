@@ -54,15 +54,13 @@ export class Invite extends React.Component {
       <div>
         <h1>Hello!</h1>
         <p>
-          Welcome to Instagram Live. This app allows you to go live form any device.
+          Welcome to Instagram Live. This app allows you to go live on Instagram from any device.
         </p>
         <p>
-          App is currently in beta that's why it works only with invite code. It
-          will be publicly available soon.
+          App is currently in beta. It will be publicly available soon.
         </p>
         <p>
-          If you don't have invite code email us on hello@err4o4.com to get it
-          :)
+          If you don't have invite code email us on live@bad.family or @err4o4 on Telegram to get it :)
         </p>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">

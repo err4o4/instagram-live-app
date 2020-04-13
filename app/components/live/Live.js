@@ -41,9 +41,8 @@ export class Live extends React.Component {
     return (
       <div>
         <h1>Yo! You are live now!</h1>
-        <p>
-          To stop streaming simply stop stream in your app then press "end stream" here.
-        </p>
+        <p> You can go live only for 1 hour due to Instagram policies. If you need more than 1 hour just stop this stream and go live again.</p>
+        <p> To stop streaming <b>stop stream in your app then end stream here.</b> </p>
         <Button
           className="pct-btn"
           outline

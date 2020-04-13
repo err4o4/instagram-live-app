@@ -43,7 +43,7 @@ export default class Home extends Component<Props, State> {
   componentWillMount() {
 
     checkVersion().then(version => {
-      if(version[0].update_required) {
+      if(version.length > 0 && version[0].update_required) {
         this.setState({
           componentState: 'update',
           version: version

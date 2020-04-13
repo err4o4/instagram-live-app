@@ -11,7 +11,7 @@ export async function checkVersion() {
         reject({ errorType: 'Unknown', error: error })
       }
       if(response.statusCode == 200){
-        console.log(body)
+        //console.log(body)
         resolve(body)
       } else {
         reject({ errorType: 'notFound', error: '404 Not Found' })

@@ -51,8 +51,7 @@ export class Dashboard extends React.Component {
         <h1>Welcome back, {this.props.username}</h1>
         <p>
           To go live you have to prepare streaming app. Set OBS,
-          Wirecast, etc. output parameters to 1080x1920 (9:16), prepare scenes and press
-          "create stream". Tutorial links here.
+          Wirecast, etc. output parameters to 1080x1920 (9:16), prepare scenes and you are ready to go!
         </p>
         <Button
           className="pct-btn"
@@ -64,11 +63,11 @@ export class Dashboard extends React.Component {
         </Button>
 
         <p>
-          This app will be free of charge on period of quarantine.
+          Remember your invite code if you logout. You will need it to login back. 
         </p>
 
         <div className="bottom">
-          <p>Email <a href="mailto:me@err4o4.com">hello@err4o4.com</a> if you find bugs.</p>
+          <p>Email <a href="mailto:live@bad.family">live@bad.family</a> if you find bugs.</p>
         </div>
 
         <Button
