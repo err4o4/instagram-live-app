@@ -153,7 +153,6 @@ export default class Home extends Component<Props, State> {
     const stream = localStorage.getItem('stream')
     if(!stream) {
       var theWindow = BrowserWindow.getFocusedWindow();
-      alert('close')
       theWindow.close();
     } else {
       alert('You have to end stream first.')
