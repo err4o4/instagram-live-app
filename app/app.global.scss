@@ -108,6 +108,9 @@ span {
   top:0;
   left: 0;
   padding-top: 5px;
+  border: 1px solid red;
+  background-color: blue;
+  z-index: 10;
 }
 
 .titleBar span {
