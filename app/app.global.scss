@@ -107,11 +107,11 @@ span {
   position: fixed;
   top:0;
   left: 0;
-  margin-top: 5px;
-  margin-left: 10px;
+  padding-top: 5px;
 }
 
 .titleBar span {
   display: inline;
-  margin-right: 5px;
+  padding-left: 5px;
+  margin-left: 10px;
 }

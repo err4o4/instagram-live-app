@@ -14,7 +14,7 @@ import { getNotifications } from '../../api/Notifications';
 import { checkCode } from '../../api/Invite';
 import { IgRestoreSession } from '../../api/Instagram';
 
-const remote = require('electron').remote;
+const {BrowserWindow} = require('electron').remote;
 
 export default class Home extends Component<Props, State> {
   constructor(props) {
@@ -152,16 +152,17 @@ export default class Home extends Component<Props, State> {
   closeApp() {
     const stream = localStorage.getItem('stream')
     if(!stream) {
-      var window = remote.getCurrentWindow();
-      window.close();
+      var theWindow = BrowserWindow.getFocusedWindow();
+      //console.log(theWindow)
+      theWindow.close();
     } else {
       alert('You have to end stream first.')
     }
   }
 
   minimizeApp() {
-    var window = remote.getCurrentWindow();
-    window.minimize();
+    var theWindow = BrowserWindow.getFocusedWindow();
+    theWindow.minimize();
   }
 
   render() {
