@@ -177,14 +177,12 @@ $headings-font-weight: 400;
 }
 
 .drag {
-  left: 0;
+  left: 65px;
   height: 35px;
-  width: 100%;
+  width: 295px;
   position: absolute;
   -webkit-user-select: none;
   -webkit-app-region: drag;
-  border: 1px solid red;
-  background-color: red;
 }
 
 
