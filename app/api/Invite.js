@@ -15,7 +15,7 @@ function updateInvite(invite) {
 
 export async function checkCode(code) {
   return new Promise(async (resolve, reject) => {
-    request(APIURL + 'invites/check/' + code, { json: true }, function (error, response, body) {
+    request(APIURL + 'invites/check/' + code.toUpperCase(), { json: true }, function (error, response, body) {
       if(error) {
         reject({ errorType: 'Unknown', error: error })
       }
