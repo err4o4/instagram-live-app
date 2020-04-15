@@ -5,6 +5,8 @@ import { IgEndStream } from '../../api/Instagram';
 import { Loading } from '../helpers/Loading';
 import { Error } from '../helpers/Error';
 
+const Store = require('electron-store');
+const store = new Store();
 
 export class Live extends React.Component {
   constructor(props) {
@@ -25,8 +27,8 @@ export class Live extends React.Component {
         this.props.callback();
       })
       .catch(error => {
-        localStorage.removeItem('stream');
-        localStorage.removeItem('isLive');
+        store.delete('stream');
+        store.delete('isLive');
         this.setState({ componentState: 'error', message : { title: 'Unable to stop steam', body: 'Please relogin.' } });
         console.error(error);
       });

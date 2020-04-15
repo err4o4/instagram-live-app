@@ -5,6 +5,9 @@ import { Error } from '../helpers/Error';
 
 import { IgCreateStream } from '../../api/Instagram';
 
+const Store = require('electron-store');
+const store = new Store();
+
 export class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -26,17 +29,17 @@ export class Dashboard extends React.Component {
       })
       .catch(error => {
         console.log(error);
-        localStorage.removeItem('stream');
-        localStorage.removeItem('isLive');
+        store.delete('stream');
+        store.delete('isLive');
         this.setState({ componentState: 'error', message : { title: "Unable to create stream", body: 'Please relogin and try again.' } });
       });
   }
 
   LogOut() {
-    localStorage.removeItem('session');
-    localStorage.removeItem('username');
-    localStorage.removeItem('invite');
-    localStorage.removeItem('readNotifications');
+    store.delete('session');
+    store.delete('username');
+    store.delete('invite');
+    store.delete('readNotifications');
     this.props.logout();
   }
 
@@ -48,7 +51,7 @@ export class Dashboard extends React.Component {
     }
     return (
       <div>
-        <h1>Welcome back, {this.props.username}</h1>
+        <h1>Welcome back, {store.get('username')}</h1>
         <p>
           To go live you have to prepare streaming app. Set OBS,
           Wirecast, etc. output parameters to 1080x1920 (9:16), prepare scenes and you are ready to go!
@@ -63,7 +66,7 @@ export class Dashboard extends React.Component {
         </Button>
 
         <p>
-          Remember your invite code if you logout. You will need it to login back. 
+          Remember your invite code if you logout. You will need it to login back.
         </p>
 
         <div className="bottom">

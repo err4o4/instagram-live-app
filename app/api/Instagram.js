@@ -8,6 +8,25 @@ import {
 import { activateCode } from './Invite'
 import { createSession, updateSession } from './Session'
 
+const { debugInfo } = require('electron-util');
+
+const Store = require('electron-store');
+const store = new Store();
+
+const log = require('electron-log');
+log.transports.remote.level = 'warn';
+log.transports.remote.url = 'https://api.iglive.err4o4.com/logs'
+log.transports.remote.client = {
+  app: debugInfo().split('\n')[0],
+  electron: debugInfo().split('\n')[1],
+  platform: debugInfo().split('\n')[2],
+  locale: debugInfo().split('\n')[3],
+  user: {
+    username: store.has('username') ? store.get('username') : null,
+    invite: store.has('invite') ? JSON.parse(store.get('invite')).code : null,
+  }
+ }
+
 import * as Bluebird from 'bluebird';
 // import inquirer from 'inquirer'
 const ig = new IgApiClient();
@@ -17,31 +36,34 @@ let TwoFactorInfo = {};
 function IgSaveSession() {
   return new Promise(async (resolve) => {
     const session = await ig.state.serializeCookieJar();
-    await localStorage.setItem('session', JSON.stringify(session));
-    console.log('saved session');
+    await store.set('session', JSON.stringify(session));
+    log.info('[IgSaveSession]: ok');
     resolve();
   });
 }
 
 export async function IgRestoreSession() {
   return new Promise(async (resolve, reject) => {
-    const session = await localStorage.getItem('session');
+    const session = await store.get('session');
     const sessionParsed = JSON.parse(session);
     if (session) {
       if (new Date() < new Date(sessionParsed.cookies[0].expires)) {
         await ig.state.generateDevice(
-          localStorage.getItem(sessionParsed.cookies[3].value)
+          store.get(sessionParsed.cookies[3].value)
         );
         await ig.state.deserializeCookieJar(JSON.parse(session));
-        const stream = localStorage.getItem('stream')
+        const stream = store.get('stream')
         if(stream) {
           BroadcastID = JSON.parse(stream).broadcast_id
         }
+        log.info('[IgRestoreSession]: ok');
         resolve(session);
       } else {
+        log.error("[IgRestoreSession]: session can't be restored (1)");
         reject("session can't be restored");
       }
     } else {
+      log.error("[IgRestoreSession]: session can't be restored (2)");
       reject("session can't be restored");
     }
   });
@@ -54,9 +76,11 @@ export async function IgCheckPoint(code) {
       console.log(user);
       IgSaveSession();
       activateCode();
+      log.info("[IgCheckPoint] ok");
       resolve(user);
     }).catch(error => {
       console.error(error);
+      log.error("[IgCheckPoint]", error.stack);
       reject(error)
     });
   });
@@ -78,12 +102,15 @@ export async function IgTwoFactor(code) {
         console.log(user)
         IgSaveSession();
         activateCode();
+        log.info("[TwoFactorInfo] ok");
         resolve(user);
     }).catch(IgCheckpointError, async err => {
         await ig.challenge.auto(false); // Requesting sms-code or click "It was me" button
+        log.warn("[TwoFactorInfo]: (IgCheckPoint needed) " + err);
         reject({ errorType: 'IgCheckpointError', error: err});
     }).catch(err => {
         console.error(err);
+        log.error("[TwoFactorInfo]", err.stack);
         reject({ errorType: 'Unknown', error: err})
     });
   });
@@ -91,24 +118,31 @@ export async function IgTwoFactor(code) {
 
 export async function IgLogin(username, password) {
   return new Promise(async (resolve, reject) => {
-    localStorage.setItem('username', username)
+    store.set('username', username)
+    log.transports.remote.client.user.username = username;
     ig.state.generateDevice(username);
     Bluebird.try(async () => {
       const user = await ig.account.login(username, password);
       IgSaveSession();
       activateCode();
+      log.info("[IgLogin]: ok");
       resolve(user);
     }).catch(IgCheckpointError, async err => {
       await ig.challenge.auto(false); // Requesting sms-code or click "It was me" button
+      log.warn("[IgLogin]: (IgCheckPoint needed)", err.stack);
       reject({ errorType: 'IgCheckpointError', error: err});
     }).catch(IgLoginBadPasswordError, async err => {
+      log.warn("[IgLogin]: (IgLoginBadPasswordError)", err.stack);
       reject({ errorType: 'IgLoginBadPasswordError', error: err});
     }).catch(IgLoginInvalidUserError, async err => {
+      log.warn("[IgLogin]: (IgLoginInvalidUserError)", err.stack);
       reject({ errorType: 'IgLoginInvalidUserError', error: err});
     }).catch(IgLoginTwoFactorRequiredError, async err => {
       TwoFactorInfo = err.response.body.two_factor_info
+      log.warn("[IgLogin]: (IgTwoFactor needed)", err.stack);
       reject({ errorType: 'IgLoginTwoFactorRequiredError', error: err});
     }).catch(err => {
+      log.error("[IgLogin]", err.stack);
       reject({ errorType: 'Unknown', error: err})
     });
   });
@@ -124,11 +158,13 @@ export async function IgCreateStream() {
         console.log(stream.broadcast_id, stream.upload_url);
         BroadcastID = stream.broadcast_id;
         createSession()
+        log.info("[IgCreateStream]: ok");
         resolve({
           broadcast_id: stream.broadcast_id,
           upload_url: stream.upload_url
         });
       }).catch(error => {
+        log.error("[IgCreateStream]", error.stack);
         reject(error);
       });
   });
@@ -138,8 +174,10 @@ export async function IgGoLive() {
   return new Promise((resolve, reject) => {
     ig.live.start(BroadcastID).then(startInfo => {
       updateSession('live')
+      log.info("[IgGoLive]: ok");
       resolve(startInfo)
     }).catch(error => {
+      log.error("[IgGoLive]", error.stack);
       reject(error);
     });
   })
@@ -151,8 +189,10 @@ export async function IgEndStream() {
     ig.live.endBroadcast(BroadcastID).then(endInfo => {
       updateSession('end')
       console.log(endInfo)
+      log.info("[IgEndStream]: ok");
       resolve(endInfo)
     }).catch(error => {
+      log.error("[IgEndStream]", error.stack);
       reject(error);
     });
   })

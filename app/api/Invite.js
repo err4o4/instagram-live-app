@@ -3,9 +3,12 @@ import * as Bluebird from 'bluebird';
 
 const APIURL = 'https://api.iglive.err4o4.com/';
 
+const Store = require('electron-store');
+const store = new Store();
+
 function updateInvite(invite) {
   return new Promise(async (resolve) => {
-    localStorage.setItem('invite', JSON.stringify(invite));
+    store.set('invite', JSON.stringify(invite));
     resolve();
   });
 }
@@ -28,8 +31,8 @@ export async function checkCode(code) {
 
 export async function activateCode() {
   return new Promise(async (resolve, reject) => {
-    const code = JSON.parse(localStorage.getItem('invite')).code
-    const username = localStorage.getItem('username')
+    const code = JSON.parse(store.get('invite')).code
+    const username = store.get('username')
     request.post({url:APIURL+'invites/activate', form: {code:code, username:username}}, function(error, response, body){
       //console.log(error,response.statusCode,body)
       if(error) {

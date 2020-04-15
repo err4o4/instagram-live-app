@@ -26,18 +26,18 @@ export class Setup extends React.Component {
         this.setState({ componentState: '' });
         this.props.callback();
       }).catch(error => {
-        localStorage.removeItem('stream');
-        localStorage.removeItem('isLive');
+        store.delete('stream');
+        store.delete('isLive');
         this.setState({ componentState: 'error', message : { title: 'Unable to go live', body: 'Please relogin and try again.' } });
         console.log(error);
       });
   }
 
   LogOut() {
-    localStorage.removeItem('session');
-    localStorage.removeItem('username');
-    localStorage.removeItem('invite');
-    localStorage.removeItem('readNotifications');
+    store.delete('session');
+    store.delete('username');
+    store.delete('invite');
+    store.delete('readNotifications');
     this.props.logout();
   }
 

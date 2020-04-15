@@ -2,6 +2,9 @@ const request = require('request');
 import moment from 'moment'
 import * as Bluebird from 'bluebird';
 
+const Store = require('electron-store');
+const store = new Store();
+
 const APIURL = 'https://api.iglive.err4o4.com/';
 
 export async function getNotifications() {
@@ -11,15 +14,15 @@ export async function getNotifications() {
         reject({ errorType: 'Unknown', error: error })
       }
       if(response.statusCode == 200){
-        const oldNotifications = JSON.parse(localStorage.getItem('readNotifications'));
-        if(oldNotifications) {
-          const readIDs = JSON.parse(localStorage.getItem('readNotifications')).id
+        if(store.has('readNotifications')) {
+          const oldNotifications = JSON.parse(store.get('readNotifications'));
+          const readIDs = JSON.parse(store.get('readNotifications')).id
           var newNotifications = body.filter(function(item){
             return readIDs.indexOf(item.id) === -1;
           });
           resolve(newNotifications)
         } else {
-          localStorage.setItem('readNotifications', JSON.stringify({id: []}))
+          store.set('readNotifications', JSON.stringify({id: []}))
           resolve(body)
         }
       } else {

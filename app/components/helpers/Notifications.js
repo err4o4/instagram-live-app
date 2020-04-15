@@ -3,6 +3,9 @@ import { Button } from 'reactstrap';
 const ReactMarkdown = require('react-markdown')
 import moment from 'moment'
 
+const Store = require('electron-store');
+const store = new Store();
+
 export class Notifications extends React.Component {
   constructor(){
       super();
@@ -11,9 +14,9 @@ export class Notifications extends React.Component {
    }
 
    delete(id){
-      let readIDs = JSON.parse(localStorage.getItem('readNotifications'))
+      let readIDs = JSON.parse(store.get('readNotifications'))
       readIDs.id.push(id)
-      localStorage.setItem('readNotifications', JSON.stringify(readIDs))
+      store.set('readNotifications', JSON.stringify(readIDs))
       this.setState(prevState => ({
           notifications: prevState.notifications.filter(el => el.id != id)
       }));

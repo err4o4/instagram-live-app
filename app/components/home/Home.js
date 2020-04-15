@@ -16,6 +16,9 @@ import { IgRestoreSession } from '../../api/Instagram';
 
 const {BrowserWindow} = require('electron').remote;
 
+const Store = require('electron-store');
+const store = new Store();
+
 export default class Home extends Component<Props, State> {
   constructor(props) {
     super(props);
@@ -24,7 +27,7 @@ export default class Home extends Component<Props, State> {
       componentState: 'dashboard',
       prevComponentState: '',
       loginStage: 'invite',
-      username: localStorage.getItem('username'),
+      username: store.get('username'),
       streamUrl: '',
       streamKey: '',
       notifications: []
@@ -51,16 +54,19 @@ export default class Home extends Component<Props, State> {
       }
     })
 
-    const code = JSON.parse(localStorage.getItem('invite'));
-    const username = localStorage.getItem('username')
-    if (code && username) {
+
+
+
+    if (store.has('invite') && store.has('username')) {
+      const code = JSON.parse(store.get('invite'));
+      const username = store.get('username')
       checkCode(code.code)
         .then(() => {
 
           if(code.username !== username) {
-            localStorage.removeItem('session');
-            localStorage.removeItem('username');
-            localStorage.removeItem('invite');
+            store.delete('session');
+            store.delete('username');
+            store.delete('invite');
             this.setState({ componentState: 'login', loginStage: 'invite' });
           }
 
@@ -93,8 +99,8 @@ export default class Home extends Component<Props, State> {
     })
 
 
-    const stream = localStorage.getItem('stream')
-    const isLive = localStorage.getItem('isLive')
+    const stream = store.get('stream')
+    const isLive = store.get('isLive')
 
     if(stream && isLive) {
       this.setState({ componentState: 'live' });
@@ -123,7 +129,7 @@ export default class Home extends Component<Props, State> {
       streamKey: info.broadcast_id + parts[1],
       componentState: 'setup'
     });
-    localStorage.setItem('stream', JSON.stringify({
+    store.set('stream', JSON.stringify({
       broadcast_id: info.broadcast_id,
       url: parts[0],
       key: info.broadcast_id + parts[1],
@@ -131,13 +137,13 @@ export default class Home extends Component<Props, State> {
   }
 
   live() {
-    localStorage.setItem('isLive', true)
+    store.set('isLive', true)
     this.setState({ componentState: 'live' });
   }
 
   streamEnd() {
-    localStorage.removeItem('stream');
-    localStorage.removeItem('isLive');
+    store.delete('stream');
+    store.delete('isLive');
     this.setState({ componentState: 'dashboard' });
   }
 
@@ -150,7 +156,7 @@ export default class Home extends Component<Props, State> {
   }
 
   closeApp() {
-    const stream = localStorage.getItem('stream')
+    const stream = store.get('stream')
     if(!stream) {
       var theWindow = BrowserWindow.getFocusedWindow();
       theWindow.close();

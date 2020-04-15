@@ -1,11 +1,14 @@
 const request = require('request');
 import * as Bluebird from 'bluebird';
 
+const Store = require('electron-store');
+const store = new Store();
+
 const APIURL = 'https://api.iglive.err4o4.com/';
 
 export async function createSession() {
   return new Promise(async (resolve, reject) => {
-    const invite = JSON.parse(localStorage.getItem('invite'))
+    const invite = JSON.parse(store.get('invite'))
     request.post({url:APIURL+'sessions', form: { invite : invite.id, stream_created : new Date() }}, function(error, response, body){
       //console.log(error,response.statusCode,body)
       if(error) {
@@ -13,7 +16,7 @@ export async function createSession() {
       }
       if(response.statusCode == 200){
         //console.log(body)
-        localStorage.setItem('streamSession', body)
+        store.set('streamSession', body)
         resolve(body)
       } else {
         reject({ errorType: 'notFound', error: '404 Not Found' })
@@ -24,7 +27,7 @@ export async function createSession() {
 
 export async function updateSession(action) {
   return new Promise(async (resolve, reject) => {
-    const streamSession = JSON.parse(localStorage.getItem('streamSession'))
+    const streamSession = JSON.parse(store.get('streamSession'))
     console.log(action)
     let form = {}
     if(action == 'live') {
@@ -46,7 +49,7 @@ export async function updateSession(action) {
         //console.log(body)
 
         if(action == 'end') {
-          localStorage.removeItem('streamSession')
+          store.delete('streamSession')
         }
         resolve(body)
       } else {

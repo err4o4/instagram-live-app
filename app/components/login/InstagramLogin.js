@@ -12,6 +12,9 @@ import { Loading } from '../helpers/Loading';
 import { Error } from '../helpers/Error';
 import { IgLogin, IgTwoFactor, IgCheckPoint } from '../../api/Instagram';
 
+const Store = require('electron-store');
+const store = new Store();
+
 export class InstagramLogin extends React.Component {
   constructor(props) {
     super(props);
@@ -31,8 +34,7 @@ export class InstagramLogin extends React.Component {
   }
 
   componentWillMount() {
-    const invite = JSON.parse(localStorage.getItem('invite'))
-    console.log(invite)
+    const invite = JSON.parse(store.get('invite'))
     if(invite.username && invite.username.length > 0) {
       this.setState({ username: invite.username, disabled: true, autoFocus: 'password' });
     }
@@ -48,7 +50,7 @@ export class InstagramLogin extends React.Component {
     this.setState({ componentState: 'loading', message: { title: 'Logging you in', body: 'Please wait a bit.' } });
     IgLogin(this.state.username, this.state.password)
       .then(user => {
-        localStorage.setItem('username', user.username);
+        store.set('username', user.username);
         this.setState({ componentState: '' });
         this.props.callback(user.username);
       }).catch(error => {
@@ -82,7 +84,7 @@ export class InstagramLogin extends React.Component {
   twoFactor(code) {
     this.setState({ componentState: 'loading', message: { title:  'Checking code', body: 'Please wait a bit.' }  });
     IgTwoFactor(code).then(user => {
-      //localStorage.setItem('username', user.username);
+      //store.set('username', user.username);
       this.setState({ componentState: '' });
       this.props.callback(user.username);
     }).catch(error => {
@@ -102,7 +104,7 @@ export class InstagramLogin extends React.Component {
   checkPoint(code) {
     this.setState({ componentState: 'loading', message: { title:  'Checking code', body: 'Please wait a bit.' } });
     IgCheckPoint(code).then(user => {
-      //localStorage.setItem('username', user.username);
+      //store.set('username', user.username);
       this.setState({ componentState: '' });
       this.props.callback(user.username);
     }).catch(error => {
