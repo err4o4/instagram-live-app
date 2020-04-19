@@ -4,7 +4,7 @@ import * as Bluebird from 'bluebird';
 const APIURL = 'https://api.iglive.err4o4.com/';
 const CurrentVer = '1.0.0';
 
-
+import { log } from '../utils/logger.js';
 
 export async function checkVersion() {
   return new Promise(async (resolve, reject) => {
