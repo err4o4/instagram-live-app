@@ -2,3 +2,50 @@
   display: flex;
   align-items: center;
 }
+
+.row-margin {
+  margin: 20px 0;
+}
+
+::selection {
+  background: black;
+  color: white;
+}
+
+.titleBar {
+  position: fixed;
+  top:0;
+  left: 0;
+  padding-top: 5px;
+}
+
+.titleBar span {
+  display: inline;
+  padding-left: 5px;
+  margin-left: 10px;
+}
+
+.drag {
+  left: 65px;
+  height: 35px;
+  width: 295px;
+  position: absolute;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+h1 {
+  font-size: 35px;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 35px;
+  margin-bottom: 20px;
+}
+
+span {
+  padding-bottom: 10px;
+  display: block;
+  font-weight: bold;
+}
+
+.hidden { display:none; }

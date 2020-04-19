@@ -19,3 +19,25 @@
     width: 1.25em;
   }
 }
+
+body {
+  position: relative;
+  color: white;
+  height: 100vh;
+  overflow-y: hidden;
+  background: linear-gradient(-45deg, #8a3ab9, #cd486b, #bc2a8d, #fccc63, #fbad50, #e95950, #4c68d7);
+	background-size: 450% 450%;
+	animation: gradient 60s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

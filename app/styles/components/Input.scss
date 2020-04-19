@@ -1,3 +1,7 @@
+input[type="checkbox"] {
+    margin: 5px;
+}
+
 .input {
   border: 0px solid #fff;
   border-radius: 20px;
@@ -36,16 +40,4 @@ textarea {
   padding: 15px;
   color: #fff;
   margin-bottom: 10px;
-}
-
-.txt-big {
-  height: 315px;
-}
-
-.txt-small {
-  height: 80px;
-}
-
-.mr-sm-2 {
-  font-weight: bold;
 }

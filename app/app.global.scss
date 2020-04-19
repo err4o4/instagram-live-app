@@ -11,107 +11,27 @@
 //
 
 @import "~bootstrap/scss/bootstrap.scss";
-@import "~ionicons/dist/css/ionicons.min.css";
-@import "~plyr/src/sass/plyr.scss";
-@import "~notie/src/notie.scss";
 
 //
 // Components
 //
 
-//@import "./styles/components/Movie.scss";
-//@import "./styles/components/CardList.scss";
-//@import "./styles/components/Rating.scss";
-//@import "./styles/components/Loader.scss";
-//@import "./styles/components/Item.scss";
-//@import "./styles/components/Show.scss";
-//@import "./styles/components/SaveItem.scss";
+@import "./styles/components/Dashboard.scss";
+@import "./styles/components/Error.scss";
+@import "./styles/components/Loading.scss";
+@import "./styles/components/Notofications.scss";
+@import "./styles/components/Home.scss";
+@import "./styles/components/Live.scss";
+@import "./styles/components/Login.scss";
+@import "./styles/components/Setup.scss";
+
+
 @import "./styles/components/Button.scss";
 @import "./styles/components/Input.scss";
-
-
-// setup styles
-
-.setup .copy-icon {
-  float: right;
-  margin-right: 10px;
-}
-
-
-// end setup styles
 
 //
 // Utilities
 //
 
-//@import "./styles/utilities/container.scss";
+@import "./styles/utilities/container.scss";
 @import "./styles/utilities/animation.scss";
-
-h1 {
-  font-size: 35px;
-  color: #fff;
-  mix-blend-mode: overlay;
-  font-weight: bold;
-  margin-top: 35px;
-  margin-bottom: 20px;
-}
-
-
-.hidden { display:none; }
-
-
-.header {
-  bottom: 5px;
-  position: absolute;
-  margin: 0 auto;
-  width: 100%;
-  text-align: center;
-  //display: none;
-}
-
-.live_preview {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top:0;
-  left: 0;
-  z-index: -1;
-  object-fit: cover;
-  object-position: center;
-}
-.config_page {
-  //color: rgb(0, 255, 255);
-  color: white;
-  mix-blend-mode: difference;
-  margin-top: 10px;
-}
-
-span {
-  padding-bottom: 10px;
-  display: block;
-  font-weight: bold;
-}
-
-.loading-wrapper {
-  position: relative;
-  height: 100vh;
-}
-
-.center {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.titleBar {
-  position: fixed;
-  top:0;
-  left: 0;
-  padding-top: 5px;
-}
-
-.titleBar span {
-  display: inline;
-  padding-left: 5px;
-  margin-left: 10px;
-}

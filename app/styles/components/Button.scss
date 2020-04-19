@@ -16,5 +16,11 @@
    position: absolute;
    left: 50%;
    bottom: 10px;
+}
 
+.btn-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
