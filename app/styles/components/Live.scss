@@ -63,7 +63,7 @@
 .comments {
   //border: 1px solid blue;
   height: 80vh;
-  overflow: scroll;
+  overflow: hidden;
   padding-left: 5px;
   padding-right: 5px;
   -webkit-mask-image: linear-gradient(to top, black 80%, transparent 99%);
