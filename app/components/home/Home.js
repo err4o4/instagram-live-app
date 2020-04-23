@@ -24,7 +24,7 @@ export default class Home extends Component<Props, State> {
     super(props);
 
     this.state = {
-      componentState: 'live',
+      componentState: 'dashboard',
       prevComponentState: '',
       loginStage: 'invite',
       username: store.get('username'),
