@@ -28,7 +28,7 @@ export class TwoFactor extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="twoFactor">
         <h1>One more step</h1>
         <p>
           To complete Two-Factor Authentication (2FA) enter security code that Instagram sent you.
@@ -47,15 +47,12 @@ export class TwoFactor extends React.Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <br />
-          <Button
-            outline
-            color="primary"
+          <button
             onClick={this.handleSubmit}
             className="pct-btn"
           >
             next
-          </Button>
+          </button>
         </Form>
       </div>
     );

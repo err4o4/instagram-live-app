@@ -28,7 +28,7 @@ export class CheckPoint extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="checkPoint">
         <h1>One more step</h1>
         <p>
           To prove that it's you enter security code that Instagram sent you.
@@ -47,15 +47,13 @@ export class CheckPoint extends React.Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <br />
-          <Button
-            outline
-            color="primary"
+
+          <button
             onClick={this.handleSubmit}
             className="pct-btn"
           >
             next
-          </Button>
+          </button>
         </Form>
       </div>
     );

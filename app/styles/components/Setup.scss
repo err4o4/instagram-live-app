@@ -1,6 +1,13 @@
-.setup .copy-icon {
+.setup .copied-text {
   float: right;
   margin-right: 10px;
+  font-weight: 400;
+  font-size: 12px;
+  cursor: copy;
+}
+
+.setup .copy-form {
+  cursor: copy;
 }
 
 .txt-big {
@@ -11,8 +18,18 @@
   height: 80px;
 }
 
+.setup .copied {
+  //background-color: rgba(70, 200, 70, 0.6) !important;
+  color: rgba(0, 255, 0, 0.9) !important;
+  transition: color 399ms ease-in-out;
+}
+
 .mr-sm-2 {
   font-weight: bold;
+}
+
+.setup .input {
+  margin-bottom: 25px;
 }
 
 /*

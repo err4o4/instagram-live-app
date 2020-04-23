@@ -27,10 +27,10 @@ export class Update extends React.Component {
    render(){
 
       return(
-        <div>
+        <div className="update">
             <h1>Update required</h1>
 
-         <div className="notifications notification">
+         <div className="updates">
             <h4>version {this.props.version[0].version}</h4>
 
             <span>notes:</span>
@@ -39,7 +39,7 @@ export class Update extends React.Component {
             <span>changelog:</span>
             <ReactMarkdown source={this.props.version[0].changelog}/>
             <br />
-            <Button onClick={this.update} outline color="primary" className="pct-btn">Download update</Button>
+            <button onClick={this.update} className="pct-btn">Download update</button>
 
           </div>
           </div>

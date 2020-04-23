@@ -51,7 +51,7 @@ export class Invite extends React.Component {
       return <Error message={this.state.message} callback={this.errorCallback} />;
     }
     return (
-      <div>
+      <div className="invite">
         <h1>Hello!</h1>
         <p>
           Welcome to Instagram Live. This app allows you to go live on Instagram from any device.
@@ -79,14 +79,12 @@ export class Invite extends React.Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <Button
-            outline
-            color="primary"
+          <button
             onClick={this.handleSubmit}
             className="pct-btn"
             type="submit">
             let's go
-          </Button>
+          </button>
         </Form>
       </div>
     );

@@ -14,7 +14,7 @@ import { getNotifications } from '../../api/Notifications';
 import { checkCode } from '../../api/Invite';
 import { IgRestoreSession } from '../../api/Instagram';
 
-const {BrowserWindow} = require('electron').remote;
+const { BrowserWindow } = require('electron').remote;
 
 const Store = require('electron-store');
 const store = new Store();
@@ -44,7 +44,9 @@ export default class Home extends Component<Props, State> {
   }
 
   componentWillMount() {
-
+    Notification.requestPermission().then(function(permission) {
+      //alert(permission)
+    });
     checkVersion().then(version => {
       if(version.length > 0 && version[0].update_required) {
         this.setState({

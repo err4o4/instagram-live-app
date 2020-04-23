@@ -3,28 +3,78 @@ input[type="checkbox"] {
 }
 
 .input {
-  border: 0px solid #fff;
-  border-radius: 20px;
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #fff;
-  padding-left: 15px;
-  padding-right: 15px;
+  box-shadow:
+    inset -4px -4px 1px rgba(255, 255, 255,.01),
+    inset  4px  4px 10px rgba(0, 0, 0, 0.1),
+    0px 0px 4px rgba(255, 255, 255,.15);
+
+  border-radius: 50px;
+  background-color: rgba(0,0,0,0.0);
+
+  transition: background-color 399ms ease-in-out;
 }
 
-.input::placeholder {
+input[type]::placeholder {
   color: rgba(255,255,255,0.5);
 }
 
-.input:disabled {
-  background-color: rgba(0, 0, 0, 0.1);
+input[type]:disabled {
+  background-color: rgba(0, 0, 0, 0);
   color: rgba(255,255,255,1)
 }
 
-.input:focus{
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 1px solid #fff;
+input[type]:focus{
+  background-color: rgba(0, 0, 0, 0);
+
+  box-shadow:
+    inset -4px -4px 1px rgba(255, 255, 255,.01),
+    inset  4px  4px 10px rgba(0, 0, 0, 0.1),
+    0px 0px 4px rgba(255, 255, 255,.15);
+
+  //border: 1px solid #fff;
   color: #fff;
 }
+
+input[type] {
+  border: 0px solid #fff;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.0);
+  color: #fff;
+  font-weight: 600;
+  padding-left: 15px;
+  padding-right: 0px;
+  height: 40px;
+}
+
+
+.input > input[type]:focus {
+  box-shadow: none;
+}
+
+
+
+.input-btn {
+  margin-left: 0px;
+  background-color: rgba(0,0,0,0);
+  border-radius: 20px;
+  border: 0px;
+  color: #fff;
+  margin-left: 1px;
+
+  transition: color 399ms ease-in-out;
+}
+
+.input-btn:hover {
+  color: #007bff;
+}
+
+.input-btn > svg {
+  margin-left: 0px;
+}
+
+
+
+
 
 .inviteCode {
   text-transform: uppercase;
@@ -40,4 +90,11 @@ textarea {
   padding: 15px;
   color: #fff;
   margin-bottom: 10px;
+
+  box-shadow:
+    inset -4px -4px 1px rgba(255, 255, 255,.01),
+    inset  4px  4px 10px rgba(0, 0, 0, 0.1),
+    0px 0px 4px rgba(255, 255, 255,.15);
+
+  transition: background-color 399ms ease-in-out;
 }

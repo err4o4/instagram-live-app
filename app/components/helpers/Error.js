@@ -13,14 +13,12 @@ export class Error extends React.Component {
             <h1>{this.props.message.title}</h1>
             <p>{this.props.message.body}</p>
 
-            <Button
-              outline
-              color="primary"
+            <button
               onClick={this.props.callback}
               className="pct-btn"
             >
               back
-            </Button>
+            </button>
           </div>
         </div>
     );

@@ -62,7 +62,7 @@ class Notification extends React.Component{
                 <h4>{i.title}</h4>
                 <small>{moment(i.created_at).format('DD MMMM, HH:mm')}</small>
                 <div className="body"><ReactMarkdown source={i.body}/></div>
-                <Button onClick={this.delete.bind(this, i.id)} outline color="primary" className="pct-btn">{i.button_text}</Button>
+                <button onClick={this.delete.bind(this, i.id)} outline color="primary" className="pct-btn">{i.button_text}</button>
              </div>
             )}
          </div>

@@ -1,0 +1,95 @@
+.controll-btns {
+  width: 342px;
+  //border: 1px solid red;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.controll-btns button {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.pct-btn > svg {
+  //margin-bottom: 0px;
+}
+
+
+.end-stream-btn > svg {
+  color: red;
+}
+
+.live-indicator-container {
+  border-radius: 5px;
+  background-color: red;
+  padding: 10px;
+  width: 170px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  //margin-left: 20px;
+  //margin-right: 10px;
+  //padding-right: 20px;
+}
+
+.live-indicator {
+  //border: 1px solid blue;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.live-indicator > span {
+  display: inline;
+  margin-left: 5px;
+  margin-right: 5px;
+
+}
+
+.live-indicator > span > svg {
+  margin-top: -3px;
+  margin-right: 0px;
+}
+
+
+.live .input {
+  //border: 1px solid blue;
+  margin-bottom: 20px;
+  margin-top: 5px;
+
+}
+
+.comments {
+  //border: 1px solid blue;
+  height: 80vh;
+  overflow: scroll;
+  padding-left: 5px;
+  padding-right: 5px;
+  -webkit-mask-image: linear-gradient(to top, black 80%, transparent 99%);
+  //mask-image: linear-gradient(to top, black 10%, transparent 100%);
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.comment {
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.no-comments {
+
+  border-radius: 5px;
+  padding: 20px;
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-weight: 800;
+  font-size: 20px;
+  color: rgba(255,255,255, 0.2);
+
+}

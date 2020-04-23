@@ -1,16 +1,42 @@
 .pct-btn {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, .8);
+  background-color: rgba(0,0,0,0);
+  height: 40px;
+  border: 0;
   border-radius: 20px;
-  color:#fff;
-  border: 2px solid #fff;
-  font-weight: 300 !important;
-  margin-bottom: 25px;
-  margin-top: 10px;
-  background-color: rgba(255,255,255,0.1);
+  box-shadow:
+    inset 1px 1px 1px rgba(255, 255, 255, 0.1),
+    inset 0 0 15px rgba(0, 0, 0, 0),
+    -4px -4px 10px rgba(255, 255, 255, .07),
+    4px 4px 10px rgba(0, 0, 0, .15),
+    inset 0px 0px 4px rgba(255, 255, 255,.15);
+
+
+  transition: box-shadow 399ms ease-in-out;
 }
 
-.live {
-  background-color: red !important;
+
+.pct-btn:hover {
+  box-shadow:
+    inset -4px -4px 1px rgba(255, 255, 255,.01),
+    inset  4px  4px 10px rgba(0, 0, 0, 0.1),
+    0px 0px 4px rgba(255, 255, 255,.15);
 }
+
+.active {
+  box-shadow:
+    inset -4px -4px 1px rgba(255, 255, 255,.01),
+    inset  4px  4px 10px rgba(0, 0, 0, 0.1),
+    0px 0px 4px rgba(255, 255, 255,.15);
+}
+
+.pct-btn:hover > svg {
+  //color: #007bff;
+}
+
 .btn-down {
    transform: translate(-50%, -50%);
    position: absolute;

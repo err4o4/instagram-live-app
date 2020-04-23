@@ -18,6 +18,8 @@ import * as Bluebird from 'bluebird';
 // import inquirer from 'inquirer'
 const ig = new IgApiClient();
 let BroadcastID = '';
+let CommentsAll = [];
+let LastCommentTs = 0;
 let TwoFactorInfo = {};
 
 function IgSaveSession() {
@@ -184,4 +186,99 @@ export async function IgEndStream() {
     });
   })
   console.log('stream end');
+}
+
+export async function GetComments() {
+
+  //const commentsObj =  JSON.parse('{"comment_likes_enabled":false,"comments":[{"pk":"17859401434871266","user_id":43429131,"text":"Втыолшш","type":0,"created_at":1587408049,"created_at_utc":1587408049,"content_type":"comment","status":"Active","bit_flags":0,"did_report_as_spam":false,"share_enabled":false,"user":{"pk":43429131,"username":"err4o4","full_name":"Ivan Savelyev","is_private":false,"profile_pic_url":"https://scontent-arn2-1.cdninstagram.com/v/t51.2885-19/s150x150/20688031_1947309065522469_2502029736541159424_a.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_ohc=x1TShI6rlTAAX9K2q9m&oh=ff0a844495049227ed87bcc5e188d775&oe=5EC7A17A","profile_pic_id":"1578004091626412939_43429131","is_verified":false,"live_with_eligibility":"1"}},{"pk":"17912656666423928","user_id":43429131,"text":"Яиуруов","type":0,"created_at":1587408047,"created_at_utc":1587408047,"content_type":"comment","status":"Active","bit_flags":0,"did_report_as_spam":false,"share_enabled":false,"user":{"pk":43429131,"username":"err4o4","full_name":"Ivan Savelyev","is_private":false,"profile_pic_url":"https://scontent-arn2-1.cdninstagram.com/v/t51.2885-19/s150x150/20688031_1947309065522469_2502029736541159424_a.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_ohc=x1TShI6rlTAAX9K2q9m&oh=ff0a844495049227ed87bcc5e188d775&oe=5EC7A17A","profile_pic_id":"1578004091626412939_43429131","is_verified":false,"live_with_eligibility":"1"}},{"pk":"17858411128880034","user_id":43429131,"text":"Алковововш","type":0,"created_at":1587408045,"created_at_utc":1587408045,"content_type":"comment","status":"Active","bit_flags":0,"did_report_as_spam":false,"share_enabled":false,"user":{"pk":43429131,"username":"err4o4","full_name":"Ivan Savelyev","is_private":false,"profile_pic_url":"https://scontent-arn2-1.cdninstagram.com/v/t51.2885-19/s150x150/20688031_1947309065522469_2502029736541159424_a.jpg?_nc_ht=scontent-arn2-1.cdninstagram.com&_nc_ohc=x1TShI6rlTAAX9K2q9m&oh=ff0a844495049227ed87bcc5e188d775&oe=5EC7A17A","profile_pic_id":"1578004091626412939_43429131","is_verified":false,"live_with_eligibility":"1"}}],"comment_count":3,"caption":null,"caption_is_edited":false,"has_more_comments":false,"has_more_headload_comments":false,"media_header_display":"none","can_view_more_preview_comments":false,"live_seconds_per_comment":2,"is_first_fetch":"True","system_comments":null,"comment_muted":0,"status":"ok"}')
+
+
+  //let commentsObj =  JSON.parse('{"comment_likes_enabled":false,"comments":[],"comment_count":3,"caption":null,"caption_is_edited":false,"has_more_comments":false,"has_more_headload_comments":false,"media_header_display":"none","can_view_more_preview_comments":false,"live_seconds_per_comment":2,"is_first_fetch":"True","system_comments":null,"comment_muted":0,"status":"ok"}')
+
+  //console.log(BroadcastID, LastCommentTs)
+  const commentsObj  = await ig.live.getComment({ broadcastId: BroadcastID, lastCommentTs: LastCommentTs });
+  //console.log(JSON.stringify(comments))
+  //comments = comments.comments
+  //console.log(commentsObj)
+  if (commentsObj.comments.length > 0) {
+    commentsObj.comments.forEach(comment => {
+      add_comment(CommentsAll, comment)
+    })
+    LastCommentTs = commentsObj.comments[commentsObj.comments.length - 1].created_at;
+
+  }
+
+  CommentsAll.sort(function(a, b) {
+    var keyA = new Date(a.created_at),
+      keyB = new Date(b.created_at);
+    // Compare the 2 dates
+    if (keyA < keyB) return -1;
+    if (keyA > keyB) return 1;
+    return 0;
+  });
+
+  return CommentsAll
+
+}
+
+function add_comment(CommentsAll, comment) {
+  const found = CommentsAll.some(el => el.pk === comment.pk);
+  if (!found) CommentsAll.push(comment);
+}
+
+
+export async function MuteComments() {
+  return new Promise((resolve, reject) => {
+    ig.live.muteComment(BroadcastID).then(muted => {
+      resolve(muted)
+    }).catch(error => {
+      log.error("[IgMuteComment]", error.stack);
+      reject(error);
+    });
+  })
+}
+
+export async function UnmuteComments() {
+  return new Promise((resolve, reject) => {
+    ig.live.unmuteComment(BroadcastID).then(unmuted => {
+      resolve(unmuted)
+    }).catch(error => {
+      log.error("[IgUnMuteComment]", error.stack);
+      reject(error);
+    });
+  })
+}
+
+export async function HeartbeatAndGetViewerCount() {
+
+  //return { viewer_count: 10, total_unique_viewer_count: 13}
+
+  return new Promise((resolve, reject) => {
+    ig.live.heartbeatAndGetViewerCount(BroadcastID).then(hbvc => {
+      console.log(hbvc)
+      resolve({ viewer_count: hbvc.viewer_count, total_unique_viewer_count: hbvc.total_unique_viewer_count})
+    }).catch(error => {
+      log.error("[IgHackeartbeatAndGetViewerCount]", error.stack);
+      reject(error);
+    });
+  })
+
+}
+
+export async function Comment(message) {
+
+  //return { viewer_count: 10, total_unique_viewer_count: 13}
+
+  return new Promise((resolve, reject) => {
+    ig.live.comment(BroadcastID, message).then(res => {
+      console.log(res)
+
+      add_comment(CommentsAll, res.comment)
+      resolve(res)
+    }).catch(error => {
+      log.error("[IgComment]", error.stack);
+      reject(error);
+    });
+  })
+
 }

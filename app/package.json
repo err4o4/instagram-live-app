@@ -2,7 +2,7 @@
   "name": "InstagramLive",
   "description": "An experimental Instagram Live client",
   "homepage": "https://github.com/err4o4/instagram-live",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "./main.prod.js",
   "author": {
     "name": "Ivan Savelyev <vantys2011@gmail.com>",

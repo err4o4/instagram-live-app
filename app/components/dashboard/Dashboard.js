@@ -50,20 +50,18 @@ export class Dashboard extends React.Component {
       return <Error callback={this.LogOut} message={this.state.message} />;
     }
     return (
-      <div>
+      <div className="full-height dashboard" >
         <h1>Welcome back, {store.get('username')}</h1>
         <p>
           To go live you have to prepare streaming app. Set OBS,
           Wirecast, etc. output parameters to 1080x1920 (9:16), prepare scenes and you are ready to go!
         </p>
-        <Button
+        <button
           className="pct-btn"
-          outline
-          color="primary"
           onClick={this.CreateStream}
         >
           create stream
-        </Button>
+        </button>
 
         <p>
           Remember your invite code if you logout. You will need it to login back.
@@ -73,14 +71,12 @@ export class Dashboard extends React.Component {
           <p>Email <a href="mailto:live@bad.family">live@bad.family</a> if you find bugs.</p>
         </div>
 
-        <Button
+        <button
           className="pct-btn"
-          outline
-          color="primary"
           onClick={this.LogOut}
         >
           logout
-        </Button>
+        </button>
       </div>
     );
   }

@@ -1,21 +1,22 @@
-.notifications button {
-  margin-top: 10px;
+.updates button {
+  margin-top: 0px;
+  margin-bottom: 20px;
 }
 
 
-.notifications::-webkit-scrollbar {
+.updates::-webkit-scrollbar {
   width: 2px;
 }
 
-.notifications::-webkit-scrollbar-track {
+.updates::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
 }
 
-.notifications::-webkit-scrollbar-thumb {
+.updates::-webkit-scrollbar-thumb {
   background-color: rgba(255,255,255,0.5);
 }
 
-.notifications {
+.updates {
   overflow-y:scroll;
   overflow-x: hidden;
   height: 85vh;
@@ -23,28 +24,28 @@
 
 }
 
-.notification p {
+.update p {
   margin: 0;
 }
 
-.notification h4 {
+.update h4 {
   margin: 0;
   font-weight: bold;
 }
 
-.notification ul {
+.update ul {
   margin: 0;
   padding-left: 20px;
 }
 
-.notification {
+.update {
   margin-bottom: 20px;
 }
 
-.notification .pct-btn {
+.update .pct-btn {
   margin-left: 3px;
 }
 
-.notification h6 {
+.update h6 {
   margin-top: 10px;
 }

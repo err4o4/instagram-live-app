@@ -132,7 +132,7 @@ export class InstagramLogin extends React.Component {
       return <Error message={this.state.message} callback={this.errorCallback} />;
     }
     return (
-      <div>
+      <div className="ig-login">
         <h1>Hello!</h1>
         <p>
           Now you can login to your Instagram account. We don't store your
@@ -168,14 +168,12 @@ export class InstagramLogin extends React.Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <Button
-            outline
-            color="primary"
+          <button
             onClick={this.handleSubmit}
             className="pct-btn"
             type="submit" >
             sign in
-          </Button>
+          </button>
         </Form>
       </div>
     );

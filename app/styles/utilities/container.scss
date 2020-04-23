@@ -1,3 +1,17 @@
+.full-height {
+  width: 100%;
+  height: calc(100vh - 30px);
+  margin-top: 30px;
+  position:relative;
+  //border: 1px solid red;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0px;
+  width: inherit;
+}
+
 .row-center {
   display: flex;
   align-items: center;
@@ -49,3 +63,7 @@ span {
 }
 
 .hidden { display:none; }
+
+.test-border {
+  border: 1px solid red;
+}
